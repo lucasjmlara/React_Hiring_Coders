@@ -1,13 +1,15 @@
 import React from "react";
-import { Swith, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Repos from './Repos';
+import Home from "./Home";
 
-export default function Routes() {
+export default function Routess() {
     return(
-        <BrowserRouter>
-            <Swith>
-                <Route path='/repos' component={Repos}/>
-            </Swith>
-        </BrowserRouter>
+        <Router>
+            <Routes>
+                <Route path='/' exact element={<Home/>}/>
+                <Route path='/repos' element={<Repos/>}/>
+            </Routes>
+        </Router>
     );
 }
