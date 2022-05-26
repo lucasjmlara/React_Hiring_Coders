@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Repos from './Repos';
-import Home from "./Home";
+import Repos from './Pages/Repositories/';
+import Home from "./Pages/Home/";
 
 export default function Routess() {
     return(
