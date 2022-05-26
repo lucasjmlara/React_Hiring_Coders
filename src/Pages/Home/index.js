@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import * as S from './styled';
+import { useNavigate } from "react-router-dom";
 
 function Home(props) {
   const [usuario, setUsuario] = useState('');
+  let navigate = useNavigate();
 
   function handlePesquisa() {
     axios.get(`https://api.github.com/users/${usuario}/repos`).then(res => {
@@ -15,6 +17,7 @@ function Home(props) {
       }))
       
       localStorage.setItem('repositoriesName', JSON.stringify(reposName));
+      navigate('/repos')
     });
   }
 
