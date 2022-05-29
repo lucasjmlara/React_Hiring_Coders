@@ -4,11 +4,13 @@ import * as S from './styled';
 import { useNavigate } from "react-router-dom";
 
 function Home(props) {
-  const [usuario, setUsuario] = useState('');
   let navigate = useNavigate();
+  const [usuario, setUsuario] = useState('');
+  const [erro, setErro] = useState(false);
 
   function handlePesquisa() {
-    axios.get(`https://api.github.com/users/${usuario}/repos`).then(res => {
+    axios.get(`https://api.github.com/users/${usuario}/repos`)
+    .then(res => {
       const repositories = res.data;
       const reposName = [];
 
@@ -17,15 +19,22 @@ function Home(props) {
       }))
       
       localStorage.setItem('repositoriesName', JSON.stringify(reposName));
-      navigate('/repos')
+      setErro(false);
+      navigate('/repos');
+    })
+    .catch(err => {
+      setErro(true);
     });
   }
 
   return (
-    <S.Container>
-      <S.Input placeholder='Usuário' className='usuarioInput' value={usuario} onChange={e => setUsuario(e.target.value)}/>
-      <S.Button type='button' onClick={handlePesquisa}>Pesquisar</S.Button>
-    </S.Container>
+    <S.Conteiner>
+      <S.Content>
+        <S.Input placeholder='Usuário' className='usuarioInput' value={usuario} onChange={e => setUsuario(e.target.value)}/>
+        <S.Button type='button' onClick={handlePesquisa}>Pesquisar</S.Button>
+      </S.Content>
+      { erro ? <S.ErrorMsg>Ocorreu um erro. Tente Novamente!</S.ErrorMsg> : ''}
+    </S.Conteiner>
   );
 }
 
